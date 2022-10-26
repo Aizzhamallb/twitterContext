@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import AddForm from "./components/AddForm";
+import Details from "./components/Details";
+import EditForm from "./components/EditForm";
+import TwitsList from "./components/TwitsList";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import TwitsContextProvider from "./twitsContext";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TwitsContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/twits"
+              element={
+                <>
+                  <AddForm />
+                  <TwitsList />
+                </>
+              }
+            />
+            <Route path="/details/:id" element={<Details />} />
+            <Route path="/edit/:id" element={<EditForm />} />
+          </Routes>
+        </BrowserRouter>
+      </TwitsContextProvider>
+    </>
   );
-}
+};
 
 export default App;
+
+// Создать микроблог(twitter), используя useContext, ContextProvider, db.json, react-router-dom. Создайте страницу отображения твитов (удаление будет находится в самом твите), добавления, и редактирования. Дизайн минимальный, делайте больше акцент на функционал.
